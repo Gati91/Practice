@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MyFirstMVC.Mapper;
 
 namespace MyFirstMVC.Controllers
 {
@@ -21,9 +22,13 @@ namespace MyFirstMVC.Controllers
 
         public IActionResult Index()
         {
+            string str = TempData["ConnectionString"] as string;
+            //TempData.Peek("ConnectionString") as string;
             //var model = selectListItems();
             var x = new SelfDetails();
             x.DomainAreas = selectListItems();
+            ModelMap modelMap = new ModelMap();
+            modelMap.MapPersonDetails(str);
             return View(x);
         }
 

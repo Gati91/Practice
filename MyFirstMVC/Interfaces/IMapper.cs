@@ -7,6 +7,6 @@ namespace Helper
 {
     public interface IMapper
     {
-        List<SelfDetails> MapPersonDetails();
+        List<PersonDetails> MapPersonDetails(string str);
     }
 }

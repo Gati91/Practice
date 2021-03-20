@@ -26,8 +26,13 @@ namespace MyFirstMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string conncetionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Database>(options => options.UseSqlServer(conncetionString));
+            
+            //services.AddDbContext<Database>(options => options.UseSqlServer(conncetionString));
+            services.AddSingleton(s =>
+            {
+                string conncetionString = Configuration.GetConnectionString("DefaultConnection");
+                return DB.GetPersonDetails(conncetionString);
+            });
             services.AddControllersWithViews();
         }
 
