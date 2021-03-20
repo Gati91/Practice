@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model MyFirstMVC.Models.SelfDetails;
+@using MyFirstMVC.Models;
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="text-center">
+    @Html.DropDownListFor(x => x.gender,
+    new SelectList(Enum.GetValues(typeof(Gender))),
+    "select gender")
+    @Html.Partial("_myPartial")
+
+    @Html.DropDownListFor(x => x.DomainAreas, Model.DomainAreas, "select domain areas")
+    @{
+        var x = TempData.Peek("Date");
+    }
+    <h2>@x</h2>
+    
+</div>
