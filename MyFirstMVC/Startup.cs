@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Helper;
+using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstMVC
 {
@@ -23,6 +26,8 @@ namespace MyFirstMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string conncetionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<Database>(options => options.UseSqlServer(conncetionString));
             services.AddControllersWithViews();
         }
 
