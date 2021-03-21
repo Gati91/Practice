@@ -23,13 +23,20 @@ namespace MyFirstMVC.Controllers
         public IActionResult Index()
         {
             string str = TempData["ConnectionString"] as string;
-            //TempData.Peek("ConnectionString") as string;
+            TempData.Keep("ConnectionString");
             //var model = selectListItems();
             var x = new SelfDetails();
             x.DomainAreas = selectListItems();
-            ModelMap modelMap = new ModelMap();
-            modelMap.MapPersonDetails(str);
+            
             return View(x);
+        }
+        [HttpPost]
+        public IActionResult BindPersonValues() 
+        {
+            string constr = TempData.Peek("ConnectionString") as string;
+            ModelMap modelMap = new ModelMap();
+            var model = modelMap.MapPersonDetails(constr);
+            return Json(model) ;
         }
 
         public IActionResult Privacy()

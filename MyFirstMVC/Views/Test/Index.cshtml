@@ -3,20 +3,106 @@
 }
 @model MyFirstMVC.Models.SelfDetails;
 @using MyFirstMVC.Models;
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<div class="text-center">
-    @Html.DropDownListFor(x => x.gender,
-    new SelectList(Enum.GetValues(typeof(Gender))),
-    "select gender")
-    @Html.Partial("_myPartial")
 
-    @Html.DropDownListFor(x => x.DomainAreas, Model.DomainAreas, "select domain areas")
-    @{
-        var x = TempData.Peek("Date");
-    }
-    <h2>@x</h2>
-    
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
+
+
+
+<div class="text-center">
+    @*@Html.DropDownListFor(x => x.gender,
+        new SelectList(Enum.GetValues(typeof(Gender))),
+        "select gender")
+        @Html.Partial("_myPartial")*@
+
+    @*@Html.DropDownListFor(x => x.DomainAreas, Model.DomainAreas, "select domain areas")
+        @{
+            var x = TempData.Peek("Date");
+        }
+        <h2>@x</h2>*@
+
 </div>
+
+
+<div class="row">
+    <div class="col-sm-9">
+        <table class="table table-bordered table-striped" id="prsntbl">
+            <thead>
+                <tr>
+                    <th>
+                        FirstName
+                    </th>
+                    <th>
+                        MiddleName
+                    </th>
+                    <th>
+                        LastName
+                    </th>
+                    <th>
+                        PhNum
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        State
+                    </th>
+                    <th>
+                        PostalCode
+                    </th>
+                    <th>
+                        Country
+                    </th>
+                    <th>
+                        EmailAddress
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "Test/BindPersonValues",
+            data: '{}',
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            success: onsuccess,
+            failure: function (response) {
+                alert(response.d);
+            },
+            error: function (response) {
+                alert(response.d);
+            }
+        });
+    });
+
+    function onsuccess(response) {
+        $('prsntbl').DataTable({
+            "bLengthChange": true,
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "bFilter": true,
+            "bSort": true,
+            "bPaginate": true,
+            "data": response,
+            "language": {
+                "emptyTable": "No record found.",
+                "processing":
+                    '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+            },  
+            "columns": [{ 'data': 'FirstName' },
+            { 'data': 'MiddleName' },
+            { 'data': 'LastName' },
+            { 'data': 'PhNum' },
+            { 'data': 'Address' },
+            { 'data': 'State' },
+            { 'data': 'PostalCode' },
+            { 'data': 'Country' },
+            { 'data': 'EmailAddress' }]
+        });
+        //alert(response);
+    }
+</script>
