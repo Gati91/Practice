@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MyFirstMVC.Mapper;
+using Newtonsoft.Json;
 
 namespace MyFirstMVC.Controllers
 {
@@ -31,12 +32,13 @@ namespace MyFirstMVC.Controllers
             return View(x);
         }
         [HttpPost]
-        public IActionResult BindPersonValues() 
+        public string BindPersonValues() 
         {
             string constr = TempData.Peek("ConnectionString") as string;
             ModelMap modelMap = new ModelMap();
             var model = modelMap.MapPersonDetails(constr);
-            return Json(model) ;
+            string x = JsonConvert.SerializeObject(model);
+            return  x;
         }
 
         public IActionResult Privacy()

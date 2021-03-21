@@ -22,9 +22,10 @@ namespace MyFirstMVC.Mapper
     {
         public static List<PersonDetails> MapListtoModel(this List<PersonDetails> selfDetails, List<PersonMap> personMaps)
         {
-            PersonDetails details = new PersonDetails();
+            
             foreach (var item in personMaps)
             {
+                PersonDetails details = new PersonDetails();
                 details.MapPersontoModel(item);
                 selfDetails.Add(details);
             }
@@ -41,7 +42,7 @@ namespace MyFirstMVC.Mapper
             self.State = personMap.State;
             self.Country = personMap.Country;
             self.PostalCode = personMap.PostalCode;
-            self.EMailAddress = personMap.EMailAddress;
+            self.EmailAddress = personMap.EMailAddress;
             return self;
         }
     }

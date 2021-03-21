@@ -17,7 +17,7 @@ namespace MyFirstMVC.Models
         public string State { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-        public string EMailAddress { get; set; }
+        public string EmailAddress { get; set; }
 
     }
 }
