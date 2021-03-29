@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 
 }
+@model MyFirstMVC.Models.SelfDetails;
 @Html.ActionLink("Details", "Details", "Student")
 @{
     var name = "";
@@ -21,13 +22,31 @@
 
 <h2> @name </h2>
 <h2> @date </h2>
-<input type="button" id="btnRedirect" value="Redirect" />
-
+<a type="button" id="btnRedirect" href="@Url.Action("AsycGautam","Home")" >Redirect</a>
+<label for="Phone">Phone</label>
+@*<input type="text" id="txtPhone" name="Phone" onblur="phonenumbercheck()"/>*@
+@Html.TextBoxFor(x => x.ContactNum, new{ onblur="phonenumbercheck()"})
+<label id="txtMessage"></label>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
-    $(function () {
+    function phonenumbercheck() {
+        var value = $('#ContactNum').val();
+        var filter = /^[0-9-+]+$/;
+        if (filter.test(value) && value.length == 10) {
+            var expr = value.substr(0, 3) + "-" + value.substr(3, 3) + "-" + value.substr(6, 10);
+            value = expr;
+            $('#txtMessage').text("valid Input");
+            
+            //$('#ContactNum').val() = value;
+        }
+        else {
+            $('#txtMessage').text("Invalid Input. The format is to be in number format which should not exceed 10characters");
+        }
+
+    }
+    @*$(function () {
     $("#btnRedirect").click(function () {
         window.location.href = "@Url.Action("AsycGautam", "Home")";
     });
-});
+});*@
 </script>

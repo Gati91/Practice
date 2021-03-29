@@ -22,8 +22,11 @@ namespace MyFirstMVC.Controllers
         {
             TempData["Date"] = DateTime.Now.ToString();
             TempData["Name"] = "Gautam";
-                        
-            return View();
+            SelfDetails selfDetails = new SelfDetails()
+            {
+                ContactNum = "12323432435"
+            };            
+            return View(selfDetails);
         }
 
         public IActionResult AsycGautam()

@@ -21,7 +21,7 @@ namespace MyFirstMVC.Models
         public string Email { get; set; }
         [Required]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$")]
-        public long ContactNum { get; set; }
+        public string ContactNum { get; set; }
         [Required]
         [StringLength(20, MinimumLength = 3)]
         public string LastName { get; set; }
@@ -30,6 +30,10 @@ namespace MyFirstMVC.Models
         public Gender gender { get; set; }
         [Required]
         public List<SelectListItem> DomainAreas { get; set; }
+
+        public string HighPriorityReason { get; set; }
+
+        public bool IsMale { get; set; }
     }
 
     public enum Gender

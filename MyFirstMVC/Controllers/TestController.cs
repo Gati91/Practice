@@ -28,7 +28,8 @@ namespace MyFirstMVC.Controllers
             //var model = selectListItems();
             var x = new SelfDetails();
             x.DomainAreas = selectListItems();
-            
+            x.IsMale = true;
+            x.HighPriorityReason = "true";
             return View(x);
         }
         [HttpPost]
