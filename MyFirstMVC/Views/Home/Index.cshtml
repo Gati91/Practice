@@ -22,31 +22,70 @@
 
 <h2> @name </h2>
 <h2> @date </h2>
-<a type="button" id="btnRedirect" href="@Url.Action("AsycGautam","Home")" >Redirect</a>
+<a type="button" id="btnRedirect" href="@Url.Action("AsycGautam","Home")">Redirect</a>
 <label for="Phone">Phone</label>
 @*<input type="text" id="txtPhone" name="Phone" onblur="phonenumbercheck()"/>*@
-@Html.TextBoxFor(x => x.ContactNum, new{ onblur="phonenumbercheck()"})
+@Html.TextBoxFor(x => x.ContactNum, new { onblur = "phonenumbercheck()" })
+<div>
+    <select id="domainareas" multiple="multiple" onchange="selectedAreas()">
+
+        @{
+            if (Model.domainAreas != null)
+            {
+                foreach (var item in Model.domainAreas)
+                {
+                    if (item.DomainName != null)
+                    {
+                        <option id="@item.DomainName" value="@item.DomainID" selected>@item.DomainName</option>
+
+                    }
+                }
+            }
+        }
+    </select>
+    @Html.Hidden("Domain Areas");
+</div>
 <label id="txtMessage"></label>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
 <script type="text/javascript">
-    function phonenumbercheck() {
-        var value = $('#ContactNum').val();
-        var filter = /^[0-9-+]+$/;
-        if (filter.test(value) && value.length == 10) {
-            var expr = value.substr(0, 3) + "-" + value.substr(3, 3) + "-" + value.substr(6, 10);
-            value = expr;
-            $('#txtMessage').text("valid Input");
-            
-            //$('#ContactNum').val() = value;
-        }
-        else {
-            $('#txtMessage').text("Invalid Input. The format is to be in number format which should not exceed 10characters");
-        }
+        function phonenumbercheck() {
+            var value = $('#ContactNum').val();
+            var filter = /^[0-9-+]+$/;
+            if (filter.test(value) && value.length == 10) {
+                var expr = value.substr(0, 3) + "-" + value.substr(3, 3) + "-" + value.substr(6, 10);
+                value = expr;
+                $('#txtMessage').text("valid Input");
+
+                $('#ContactNum').val(value);
+            }
+            else {
+                $('#txtMessage').text("Invalid Input. The format is to be in number format which should not exceed 10characters");
+            }
 
     }
-    @*$(function () {
-    $("#btnRedirect").click(function () {
-        window.location.href = "@Url.Action("AsycGautam", "Home")";
+    $(document).ready(function () {
+        $('#domainAreas').multiselect({
+            nonSelectedText: '--domain areas--'
+        });
     });
-});*@
+
+    function selectedAreas() {
+
+        var selectedAreaIds = [];
+        for (var option of document.getElementById('domainAreas').options) {
+            if (option.selected) {
+                selectedAreaIds.push(option.value);
+            }
+        }
+        document.getElementById('domainAreas').value = selectedAreaIds;
+    }
+        @*$(function () {
+        $("#btnRedirect").click(function () {
+            window.location.href = "@Url.Action("AsycGautam", "Home")";
+        });
+    });*@
 </script>

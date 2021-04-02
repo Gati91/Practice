@@ -29,11 +29,17 @@ namespace MyFirstMVC.Models
         [Display(Name ="Gender")]
         public Gender gender { get; set; }
         [Required]
-        public List<SelectListItem> DomainAreas { get; set; }
-
+        public List<DomainAreas> domainAreas { get; set; }
+        
         public string HighPriorityReason { get; set; }
 
         public bool IsMale { get; set; }
+    }
+
+    public class DomainAreas
+    {
+        public int DomainID { get; set; }
+        public string DomainName { get; set; }
     }
 
     public enum Gender

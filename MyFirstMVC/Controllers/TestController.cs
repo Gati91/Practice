@@ -27,7 +27,7 @@ namespace MyFirstMVC.Controllers
             TempData.Keep("ConnectionString");
             //var model = selectListItems();
             var x = new SelfDetails();
-            x.DomainAreas = selectListItems();
+            x.domainAreas = GenerateDomainAreas();
             x.IsMale = true;
             x.HighPriorityReason = "true";
             return View(x);
@@ -53,26 +53,19 @@ namespace MyFirstMVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public Dictionary<int, string> GenerateDomainAreas()
+        public List<DomainAreas> GenerateDomainAreas()
         {
-            var lst = new Dictionary<int, string>();
-            lst.Add(1, "C#");
-            lst.Add(2, "F#");
-            return lst;
-        }
-
-        public List<SelectListItem> selectListItems()
-        {
-            var x = new List<SelectListItem>();
-            foreach (var item in GenerateDomainAreas())
+            var lst = new List<DomainAreas>();
+            for (int i = 0; i <= 1; i++)
             {
-                x.Add(new SelectListItem
+                DomainAreas domainAreas = new DomainAreas()
                 {
-                    Text = item.Value,
-                    Value = item.Key.ToString()
-                });
+                    DomainID = i,
+                    DomainName = i == 0 ? "C#" : "ASP.Net"
+                };
+                lst.Add(domainAreas);
             }
-            return x;
+            return lst;
         }
     }
 }
