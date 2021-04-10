@@ -16,7 +16,12 @@
             var x = TempData.Peek("Date");
         }
         <h2>@x</h2>*@
-    @Html.CheckBoxFor(x => x.IsMale, new { @checked = true, @class ="CheckboxClass", @value="Male"})
+    @foreach (var item in Model.Courses)
+    {
+        @Html.CheckBoxFor(m => item.IsUserHaveKnowledge, new { @class= "ui-checkboxradio-checked", @id= @item.SubjectId })
+        <label for="@item.SubjectId">@item.subjectName</label>
+    }
+    
     @*@Html.CheckBoxFor(x => Convert.ToBoolean(x.HighPriorityReason), new { @checked = "true", @class= "CheckboxClass" });*@
 </div>
 @section Scripts{
@@ -67,6 +72,8 @@
         });
     </script>
 }
+<label>@Context.Request.Path</label>
+<label>@Context.Request.HttpContext.Request.Path</label>
 <div class="row">
     <div class="col-sm-9">
         <table class="table table-bordered table-striped" id="prsntbl">

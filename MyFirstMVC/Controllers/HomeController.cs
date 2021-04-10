@@ -29,6 +29,7 @@ namespace MyFirstMVC.Controllers
             SelfDetails selfDetails = new SelfDetails()
             {
                 ContactNum = "12323432435",
+                DateofBirth = DateTime.Now,
                 domainAreas = GenerateDomainAreas()
             };
             return View(selfDetails);

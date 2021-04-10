@@ -27,11 +27,61 @@ namespace MyFirstMVC.Controllers
             TempData.Keep("ConnectionString");
             //var model = selectListItems();
             var x = new SelfDetails();
-            x.domainAreas = GenerateDomainAreas();
-            x.IsMale = true;
+            x.domainAreas = GenerateDomainAreas();            
             x.HighPriorityReason = "true";
+            x.Courses = GetTechnologies();
             return View(x);
         }
+
+        public List<Technologies> GetTechnologies()
+        {
+            List<Technologies> lsttech = new List<Technologies>();
+            Technologies technologies = new Technologies()
+            {
+                IsUserHaveKnowledge = true,
+                SubjectId = 1,
+                subjectName = "C#"
+            };
+            lsttech.Add(technologies);
+            Technologies technologies1 = new Technologies()
+            {
+                IsUserHaveKnowledge = true,
+                SubjectId = 2,
+                subjectName = "java"
+            };
+            lsttech.Add(technologies1);
+            Technologies technologies2 = new Technologies()
+            {
+                IsUserHaveKnowledge = false,
+                SubjectId = 3,
+                subjectName = "ASP.Net"
+            };
+            lsttech.Add(technologies2);
+            Technologies technologies3 = new Technologies()
+            {
+                IsUserHaveKnowledge = false,
+                SubjectId = 3,
+                subjectName = "ASP.Net"
+            };
+            lsttech.Add(technologies3);
+            Technologies technologies4 = new Technologies()
+            {
+                IsUserHaveKnowledge = true,
+                SubjectId = 4,
+                subjectName = "MVC"
+            };
+            lsttech.Add(technologies4);
+            Technologies technologies5 = new Technologies()
+            {
+                IsUserHaveKnowledge = true,
+                SubjectId = 4,
+                subjectName = "Jquery"
+            };
+            lsttech.Add(technologies5);
+
+            return lsttech;
+        }
+
         [HttpPost]
         public string BindPersonValues() 
         {
